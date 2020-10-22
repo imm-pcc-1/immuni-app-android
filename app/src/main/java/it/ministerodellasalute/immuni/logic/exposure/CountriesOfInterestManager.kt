@@ -35,6 +35,8 @@ class CountriesOfInterestManager(
         return exposureReportingRepository.getCountriesOfInterest().toMutableList()
     }
 
+    fun selector(country: CountryOfInterest): String = country.fullName
+
     fun getCountries(): MutableList<CountryOfInterest> {
         val listCountries = mutableListOf<CountryOfInterest>()
         val settingsCountries = (settingsRepository.loadSettings()).countries
@@ -48,6 +50,7 @@ class CountriesOfInterestManager(
                 )
             )
         }
+        listCountries.sortBy { selector(it) }
         return listCountries
     }
 
